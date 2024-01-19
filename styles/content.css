@@ -1,0 +1,43 @@
+.page {
+  padding: 80px 0;
+}
+
+.title-name {
+  font-size: 50px;
+  margin: 0 0 40px;
+  line-height: 130%;
+}
+
+.text-block {
+  margin: 0 0 150px;
+}
+
+.text {
+  font-size: 22px;
+  margin: 0 0 35px;
+  line-height: 150%;
+}
+
+.text:last-child {
+  margin: 0;
+}
+
+.arrow {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.page-link {
+  text-decoration: none;
+  font-weight: 700;
+  line-height: 24px;
+  color: inherit;
+}
+
+.text-author {
+  display: inline;
+  font-size: 22px;
+  line-height: 24px;
+  float: right;
+  margin: 0;
+}
