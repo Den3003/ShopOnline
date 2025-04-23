@@ -9,6 +9,8 @@
 }
 
 .articles__items {
+  padding: 0;
+  margin: 0 0 192px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;

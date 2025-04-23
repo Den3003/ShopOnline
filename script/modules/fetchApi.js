@@ -1,5 +1,5 @@
-export const loadGoods = async () => {
-  const result = await fetch('https://gorest.co.in/public-api/posts');
+export const loadGoods = async (fetchParams) => {
+  const result = await fetch(fetchParams);
   const data = await result.json();
 
   return data;

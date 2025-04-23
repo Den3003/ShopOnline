@@ -1,14 +1,14 @@
 import {renderArticles, renderArticleText} from './modules/render.js';
+const path = window.location.pathname;
 
-const init = () => {
+
+if (path.includes("blog.html")) {
   renderArticles();
-
-};
-
-init();
-
-if (window.location.pathname === '/article.html') {
-  const articleId = +(window.location.search).slice(1);
-  renderArticleText(articleId);
 }
+
+if (path.includes("article.html")) {
+  renderArticleText();
+}
+
+
 

@@ -19,6 +19,12 @@
   vertical-align: bottom;
 }
 
+.page__footer-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .page__link {
   text-decoration: none;
   font-weight: 700;
@@ -26,10 +32,19 @@
   color: inherit;
 }
 
-.page__author {
-  display: inline;
+.author-text {
   font-size: 22px;
   line-height: 24px;
-  float: right;
+  margin: 0 0 10px;
+}
+
+.author-text:last-child {
   margin: 0;
 }
+
+.author__email {
+  text-decoration: none;
+  color: inherit;
+}
+
+

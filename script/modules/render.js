@@ -1,22 +1,61 @@
-import {createArticle} from "./createElements.js";
+import {controlArrow, getCurrentPageFromURL, getVisiblePages} from "./control.js";
+import {
+  createArticle, 
+  createPaginationItem,
+  createAuthorDetails,
+} from "./createElements.js";
 import domElements from "./domElements.js";
 import {loadGoods} from "./fetchApi.js";
+import {POSTS_API, USERS_API} from "./variables.js";
+
+const renderPagination = (data) => {
+  const totalPages = data.meta.pagination.pages;
+  let currentPage = getCurrentPageFromURL();
+  console.log('currentPage: ', currentPage);
+  console.log('totalPages: ', totalPages);
+
+  controlArrow(currentPage, totalPages);
+  const pageNumbers = getVisiblePages(currentPage, totalPages);
+  console.log('pageNumber: ', pageNumbers);
+  pageNumbers.forEach(num => {
+    let href;
+    let linkActive = false;
+    if (num === 1) {
+      href = "blog.html";
+    } else {
+      href = `blog.html?page=${num}`;
+    }
+    if (num === currentPage) linkActive = true;
+    domElements.pageNavigationList.appendChild(createPaginationItem(num, href, linkActive)); 
+  });
+};
 
 export const renderArticles = async () => {
-  const data = await loadGoods();
+  const params = new URLSearchParams(window.location.search);
+  const currentPage = parseInt(params.get("page")) || 1;
+  const data = await loadGoods(`${POSTS_API}?page=${currentPage}`);
   const articles = data.data.map((item, index) => createArticle(item, ++index));
+  renderPagination(data);
 
   domElements.articlesWrapper.append(...articles);
 };
 
-export const renderArticleText = async (id) => {
-  const data = await loadGoods();
+export const renderArticleText = async () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const data = await loadGoods(`${POSTS_API}/${id}`);
+  const userId = data.data.user_id;
+  let authorDetailsText;
 
-  data.data.forEach(element => {
-    if (element.id === id) {
-      domElements.articleTitle.textContent = element.title;
-      domElements.articleBody.textContent = element.body;
-      domElements.articleAuthor.textContent = element.user_id;
-    }
-  });
+  domElements.articleTitle.textContent = data.data.title;
+  domElements.articleBody.textContent = data.data.body;
+
+  const fetchAuthorDetails = `${USERS_API}/${userId}`;
+  const authorDetails = await loadGoods(fetchAuthorDetails);
+  if (authorDetails.code === 200) {
+    authorDetailsText = createAuthorDetails(authorDetails);
+  } else {
+    authorDetailsText = `<p class="author-text">Автор не указан.</p>`;
+  }
+  domElements.authorDetailsBlock.insertAdjacentHTML('beforeend', authorDetailsText);
 };
