@@ -1,4 +1,4 @@
-import {controlArrow, getCurrentPageFromURL, getVisiblePages} from "./control.js";
+import {controlArrow, controlLoader, getCurrentPageFromURL, getVisiblePages} from "./control.js";
 import {
   createArticle, 
   createPaginationItem,
@@ -11,12 +11,10 @@ import {POSTS_API, USERS_API} from "./variables.js";
 const renderPagination = (data) => {
   const totalPages = data.meta.pagination.pages;
   let currentPage = getCurrentPageFromURL();
-  console.log('currentPage: ', currentPage);
-  console.log('totalPages: ', totalPages);
 
   controlArrow(currentPage, totalPages);
+
   const pageNumbers = getVisiblePages(currentPage, totalPages);
-  console.log('pageNumber: ', pageNumbers);
   pageNumbers.forEach(num => {
     let href;
     let linkActive = false;
@@ -34,6 +32,7 @@ export const renderArticles = async () => {
   const params = new URLSearchParams(window.location.search);
   const currentPage = parseInt(params.get("page")) || 1;
   const data = await loadGoods(`${POSTS_API}?page=${currentPage}`);
+  controlLoader(true);
   const articles = data.data.map((item, index) => createArticle(item, ++index));
   renderPagination(data);
 

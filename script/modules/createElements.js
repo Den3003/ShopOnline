@@ -40,8 +40,6 @@ export const createPaginationItem = (num, link, linkActive) => {
   if (linkActive) {
     paginationItem.classList.add('pagination-number__item_page_active');
   }
-  
-
   paginationItem.append(createPaginationLink(num, link));
 
   return paginationItem;

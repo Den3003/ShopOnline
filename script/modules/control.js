@@ -37,3 +37,26 @@ export const getVisiblePages = (current, total) => {
 
   return pages;
 }
+
+export const controlLoader = (toggle) => {
+  if (toggle) {
+    document.body.style.overflowY = 'hidden';
+    domElements.loader.style.opacity = 1;
+  } else {
+    domElements.loader.animate(
+      [
+        { opacity: "1" },
+        { opacity: "0" },
+      ],
+      {
+        duration: 2000,
+      },
+    );
+    domElements.loader.style.opacity = 0;
+    document.body.style.overflowY = 'unset';
+    setTimeout(() => {
+      domElements.loader.style.display = "none";
+    }, 1500);
+  }
+  
+};

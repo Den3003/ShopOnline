@@ -1,12 +1,13 @@
+.articles {
+  padding: 80px 0 147px;
+}
+
 .container-blog {
   max-width: 1493px;
   padding: 0 30px;
   margin: 0 auto;
 }
 
-.articles {
-  padding: 80px 0 147px;
-}
 
 .articles__items {
   padding: 0;
