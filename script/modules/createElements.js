@@ -1,7 +1,11 @@
+import {sizeImage} from "./variables.js";
+
 const createArticleImage = (index) => {
   const articleImage = document.createElement('img');
   articleImage.classList.add('article-section__image');
   articleImage.setAttribute('src', `https://loremflickr.com/400/400?${index}`);
+  articleImage.setAttribute('width', `${sizeImage}`);
+  articleImage.setAttribute('height', `${sizeImage}`);
 
   return articleImage;
 };

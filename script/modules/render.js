@@ -31,8 +31,13 @@ const renderPagination = (data) => {
 export const renderArticles = async () => {
   const params = new URLSearchParams(window.location.search);
   const currentPage = parseInt(params.get("page")) || 1;
-  const data = await loadGoods(`${POSTS_API}?page=${currentPage}`);
   controlLoader(true);
+  const data = await loadGoods(`${POSTS_API}?page=${currentPage}`);
+  if (data) {
+    setTimeout(() => {
+      controlLoader(false);
+    }, 2500);
+  };
   const articles = data.data.map((item, index) => createArticle(item, ++index));
   renderPagination(data);
 
@@ -42,7 +47,13 @@ export const renderArticles = async () => {
 export const renderArticleText = async () => {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
+  controlLoader(true);
   const data = await loadGoods(`${POSTS_API}/${id}`);
+  if (data) {
+    setTimeout(() => {
+      controlLoader(false);
+    }, 2500);
+  };
   const userId = data.data.user_id;
   let authorDetailsText;
 
